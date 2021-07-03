@@ -147,20 +147,17 @@ class my_bytes_reader():
             self.search_show()
     def search_next(self, x):
         if self.entry_search.get() == '' or self.text.get('0.0', 'end') == '\n':
-            print('11')
             self.label_search.config(text='0/0')
             self.text.tag_delete('selection')
             self.search_i = 0
             self.search_arr.clear()
             self.search_old = self.entry_search.get()
         elif self.entry_search.get() != self.search_old:
-            print('12')
             self.search_old = self.entry_search.get()
             self.search()
             self.search_i = 0
             self.search_show()
         elif len(self.search_arr) > 0:
-            print('13')
             self.search_i = self.search_i + 1
             if self.search_i == len(self.search_arr):
                 self.search_i = 0
@@ -177,9 +174,9 @@ class my_bytes_reader():
             for i in range(len(self.search_old) // 4):
                 t_arr.append(int(self.search_old[i * 4 + 2:i * 4 + 4], 16))
         elif re.match(r'^([0-9]{1,3})+(;[0-9]{1,3})*$', self.search_old) != None:
-            t_arr = str(self.search_old).split(';')
-            for i in range(len(t_arr)):
-                t_arr.append(int(t_arr[i]))
+            t_str = str(self.search_old).split(';')
+            for i in range(len(t_str)):
+                t_arr.append(int(t_str[i], 10))
         else:
             print('搜索框输入格式不正确')
         if len(t_arr) != 0:
